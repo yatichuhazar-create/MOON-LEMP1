@@ -16,8 +16,8 @@ jobs:
         run: chmod +x gradlew
       - name: Generate Dummy Debug Keystore
         run: mkdir -p ~/.android && keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US" && cp ~/.android/debug.keystore ./app/debug.keystore || true
-      - name: Build with Gradle (Bypass KSP Daemon)
-        run: ./gradlew assembleDebug -Dorg.gradle.jvmargs="-Xmx2048m -Dkotlin.compiler.execution.strategy=in-process" --no-daemon
+      - name: Build with Gradle (Bypass KSP Daemon & Headless AWT)
+        run: ./gradlew assembleDebug -Dorg.gradle.jvmargs="-Xmx2048m -Djava.awt.headless=true -Dkotlin.compiler.execution.strategy=in-process" --no-daemon
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
