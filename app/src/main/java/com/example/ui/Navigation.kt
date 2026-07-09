@@ -7,14 +7,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ui.screens.HomeScreen
 import com.example.ui.screens.NotesScreen
-import com.example.ui.screens.AiScreen
 import com.example.ui.screens.PlannerScreen
 import com.example.ui.screens.SettingsScreen
 
 sealed class Route(val route: String) {
     object Home : Route("home")
     object Notes : Route("notes")
-    object Ai : Route("ai")
     object Planner : Route("planner")
     object Settings : Route("settings")
 }
@@ -26,7 +24,6 @@ fun MoonlempNavHost(
     NavHost(navController = navController, startDestination = Route.Home.route) {
         composable(Route.Home.route) { HomeScreen(navController) }
         composable(Route.Notes.route) { NotesScreen(navController) }
-        composable(Route.Ai.route) { AiScreen(navController) }
         composable(Route.Planner.route) { PlannerScreen(navController) }
         composable(Route.Settings.route) { SettingsScreen(navController) }
     }

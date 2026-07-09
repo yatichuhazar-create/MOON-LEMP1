@@ -32,7 +32,7 @@ fun SettingsScreen(navController: NavController) {
         LazyColumn {
             item { SettingsItem(icon = Icons.Filled.Person, title = "Account & Sync") }
             item { SettingsItem(icon = Icons.Filled.Palette, title = "Appearance") }
-            item { Divider(color = MaterialTheme.colorScheme.surfaceVariant, modifier = Modifier.padding(vertical = 8.dp)) }
+            item { HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant, modifier = Modifier.padding(vertical = 8.dp)) }
             item { 
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text("Developer Contact", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)

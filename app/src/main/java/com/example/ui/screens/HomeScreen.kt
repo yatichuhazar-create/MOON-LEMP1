@@ -13,6 +13,8 @@ import androidx.compose.material.icons.filled.SelfImprovement
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.NightsStay
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -51,7 +53,7 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Text(
                         text = buildAnnotatedString {
-                            withStyle(style = SpanStyle(fontWeight = FontWeight.Black, color = Color.White)) {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Black, color = MaterialTheme.colorScheme.onBackground)) {
                                 append("MOON")
                             }
                             withStyle(style = SpanStyle(fontWeight = FontWeight.Light, fontStyle = FontStyle.Italic, color = ImmersiveBlueLight)) {
@@ -63,17 +65,25 @@ fun HomeScreen(navController: NavController) {
                     )
                     
                     Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        // Search Button
+                        // Theme Toggle Button
+                        val isDarkTheme = androidx.compose.foundation.isSystemInDarkTheme()
                         Box(
                             modifier = Modifier
                                 .size(40.dp)
                                 .clip(CircleShape)
-                                .background(GlassSurface)
-                                .border(1.dp, GlassBorder, CircleShape)
-                                .clickable { },
+                                .background(MaterialTheme.colorScheme.surface)
+                                .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
+                                .clickable {
+                                    if (isDarkTheme) {
+                                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO)
+                                    } else {
+                                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES)
+                                    }
+                                },
                             contentAlignment = Alignment.Center
                         ) {
-                            Icon(Icons.Filled.Search, contentDescription = "Search", tint = Color.White, modifier = Modifier.size(20.dp))
+                            val icon = if (isDarkTheme) Icons.Filled.WbSunny else Icons.Filled.NightsStay
+                            Icon(icon, contentDescription = "Toggle Theme", tint = MaterialTheme.colorScheme.onBackground, modifier = Modifier.size(20.dp))
                         }
                         // Focus Button
                         Box(
@@ -95,8 +105,8 @@ fun HomeScreen(navController: NavController) {
             // Welcome Message
             item {
                 Column(modifier = Modifier.padding(horizontal = 24.dp).padding(bottom = 24.dp)) {
-                    Text("Good evening,", fontSize = 24.sp, fontWeight = FontWeight.Light, color = Color.White.copy(alpha = 0.6f))
-                    Text("Tonmoy", fontSize = 32.sp, fontWeight = FontWeight.Medium, color = Color.White)
+                    Text("Good evening,", fontSize = 24.sp, fontWeight = FontWeight.Light, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f))
+                    Text("Tonmoy", fontSize = 32.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onBackground)
                 }
             }
 
@@ -106,15 +116,6 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    QuickActionCapsule(
-                        modifier = Modifier.weight(1f),
-                        icon = Icons.Filled.AutoAwesome,
-                        iconBg = ImmersiveIndigo.copy(alpha = 0.2f),
-                        iconTint = ImmersiveIndigo,
-                        subtitle = "ASK AI",
-                        title = "Gemini",
-                        onClick = { navController.navigate("ai") }
-                    )
                     QuickActionCapsule(
                         modifier = Modifier.weight(1f),
                         icon = Icons.Filled.Timer,
@@ -141,8 +142,8 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Row(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                         Text("TODAY'S SCHEDULE", fontSize = 14.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp, color = ImmersiveBlueLight)
-                        Box(modifier = Modifier.clip(CircleShape).background(Color.White.copy(alpha = 0.1f)).padding(horizontal = 8.dp, vertical = 4.dp)) {
-                            Text("4 Pending", fontSize = 10.sp, color = Color.White)
+                        Box(modifier = Modifier.clip(CircleShape).background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f)).padding(horizontal = 8.dp, vertical = 4.dp)) {
+                            Text("4 Pending", fontSize = 10.sp, color = MaterialTheme.colorScheme.onBackground)
                         }
                     }
 
@@ -153,15 +154,15 @@ fun HomeScreen(navController: NavController) {
                     TaskItem("Morning Reflection", "Completed at 08:15 AM", Color.Gray, true)
 
                     // Habit Tracking Micro-Visual
-                    Divider(color = Color.White.copy(alpha = 0.05f), modifier = Modifier.padding(vertical = 16.dp))
+                    HorizontalDivider(color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.05f), modifier = Modifier.padding(vertical = 16.dp))
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                         Column {
-                            Text("HYDRATION", fontSize = 10.sp, color = Color.White.copy(alpha = 0.4f))
-                            Text("1.2 / 2.5L", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                            Text("HYDRATION", fontSize = 10.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f))
+                            Text("1.2 / 2.5L", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
                         }
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             repeat(3) { Box(modifier = Modifier.width(6.dp).height(24.dp).clip(CircleShape).background(ImmersiveBlue)) }
-                            repeat(2) { Box(modifier = Modifier.width(6.dp).height(24.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.1f))) }
+                            repeat(2) { Box(modifier = Modifier.width(6.dp).height(24.dp).clip(CircleShape).background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f))) }
                         }
                     }
                 }
@@ -199,8 +200,8 @@ fun QuickActionCapsule(modifier: Modifier = Modifier, icon: ImageVector, iconBg:
         }
         Spacer(modifier = Modifier.width(12.dp))
         Column {
-            Text(subtitle, fontSize = 10.sp, color = Color.White.copy(alpha = 0.5f), letterSpacing = 1.sp)
-            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
+            Text(subtitle, fontSize = 10.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), letterSpacing = 1.sp)
+            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onBackground)
         }
     }
 }
@@ -212,8 +213,8 @@ fun TaskItem(title: String, subtitle: String, color: Color, isCompleted: Boolean
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(Color.White.copy(alpha = 0.05f))
-            .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.05f))
+            .border(1.dp, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
             .padding(12.dp)
             .alpha(alpha),
         verticalAlignment = Alignment.CenterVertically
@@ -225,20 +226,20 @@ fun TaskItem(title: String, subtitle: String, color: Color, isCompleted: Boolean
                 title, 
                 fontSize = 14.sp, 
                 fontWeight = FontWeight.Medium, 
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 textDecoration = if (isCompleted) androidx.compose.ui.text.style.TextDecoration.LineThrough else null
             )
-            Text(subtitle, fontSize = 10.sp, color = Color.White.copy(alpha = 0.4f))
+            Text(subtitle, fontSize = 10.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f))
         }
         Box(
             modifier = Modifier
                 .size(24.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(if (isCompleted) ImmersiveBlue.copy(alpha = 0.4f) else Color.Transparent)
-                .border(2.dp, if (isCompleted) Color.Transparent else Color.White.copy(alpha = 0.1f), RoundedCornerShape(8.dp)),
+                .border(2.dp, if (isCompleted) Color.Transparent else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f), RoundedCornerShape(8.dp)),
             contentAlignment = Alignment.Center
         ) {
-            if (isCompleted) Icon(Icons.Filled.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(16.dp))
+            if (isCompleted) Icon(Icons.Filled.Check, contentDescription = null, tint = MaterialTheme.colorScheme.onBackground, modifier = Modifier.size(16.dp))
         }
     }
 }
@@ -248,13 +249,13 @@ fun StatCard(modifier: Modifier = Modifier, label: String, value: String) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(24.dp))
-            .background(Color.White.copy(alpha = 0.05f))
-            .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(24.dp))
+            .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.05f))
+            .border(1.dp, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.05f), RoundedCornerShape(24.dp))
             .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(label, fontSize = 12.sp, color = Color.White.copy(alpha = 0.4f))
-        Text(value, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
+        Text(label, fontSize = 12.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f))
+        Text(value, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
     }
 }
 

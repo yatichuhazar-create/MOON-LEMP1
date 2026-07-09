@@ -27,12 +27,28 @@ private val DarkColorScheme =
     outline = GlassBorder
   )
 
+private val LightColorScheme =
+  lightColorScheme(
+    primary = ImmersiveBlue,
+    secondary = ImmersiveBlueLight,
+    tertiary = ImmersiveIndigo,
+    background = Color(0xFFF0F4F8),
+    surface = Color.White,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+    onBackground = Color(0xFF0F172A),
+    onSurface = Color(0xFF0F172A),
+    surfaceVariant = Color(0xFFE2E8F0),
+    onSurfaceVariant = Color(0xFF334155),
+    outline = Color(0xFFCBD5E1)
+  )
+
 @Composable
 fun MyApplicationTheme(
+  darkTheme: Boolean = isSystemInDarkTheme(),
   content: @Composable () -> Unit,
 ) {
-  val colorScheme = DarkColorScheme
-
+  val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
   MaterialTheme(colorScheme = colorScheme, typography = Typography, content = content)
 }

@@ -10,7 +10,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -66,7 +65,7 @@ fun MoonlempApp() {
                         Icon(
                             Icons.Filled.Home,
                             contentDescription = "Home",
-                            tint = if (isHome) ImmersiveBlue else Color.White.copy(alpha = 0.4f)
+                            tint = if (isHome) ImmersiveBlue else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
                         )
                         if (isHome) {
                             Box(modifier = Modifier.padding(top = 4.dp).size(4.dp).background(ImmersiveBlue, CircleShape))
@@ -81,7 +80,7 @@ fun MoonlempApp() {
                         Icon(
                             Icons.Filled.Edit,
                             contentDescription = "Notes",
-                            tint = if (isNotes) ImmersiveBlue else Color.White.copy(alpha = 0.4f)
+                            tint = if (isNotes) ImmersiveBlue else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
                         )
                         if (isNotes) {
                             Box(modifier = Modifier.padding(top = 4.dp).size(4.dp).background(ImmersiveBlue, CircleShape))
@@ -99,7 +98,7 @@ fun MoonlempApp() {
                         Icon(
                             Icons.Filled.CalendarToday,
                             contentDescription = "Planner",
-                            tint = if (isPlanner) ImmersiveBlue else Color.White.copy(alpha = 0.4f)
+                            tint = if (isPlanner) ImmersiveBlue else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
                         )
                         if (isPlanner) {
                             Box(modifier = Modifier.padding(top = 4.dp).size(4.dp).background(ImmersiveBlue, CircleShape))
@@ -114,28 +113,12 @@ fun MoonlempApp() {
                         Icon(
                             Icons.Filled.Settings,
                             contentDescription = "Settings",
-                            tint = if (isSettings) ImmersiveBlue else Color.White.copy(alpha = 0.4f)
+                            tint = if (isSettings) ImmersiveBlue else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
                         )
                         if (isSettings) {
                             Box(modifier = Modifier.padding(top = 4.dp).size(4.dp).background(ImmersiveBlue, CircleShape))
                         }
                     }
-                }
-
-                // AI FAB floating above center
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .offset(y = (-16).dp)
-                        .size(56.dp)
-                        .shadow(20.dp, CircleShape, spotColor = ImmersiveBlue.copy(alpha = 0.4f))
-                        .clip(CircleShape)
-                        .background(ImmersiveBlue)
-                        .border(4.dp, MaterialTheme.colorScheme.background, CircleShape)
-                        .clickable { navController.navigate(Route.Ai.route) },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(Icons.Filled.AutoAwesome, contentDescription = "AI", tint = Color.White)
                 }
             }
         }
