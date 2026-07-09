@@ -1,0 +1,6 @@
+{
+  "name": "MOONLEMP",
+  "description": "Premium Android productivity application with Smart Notes, Daily Planner, Focus Mode, and Gemini AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
