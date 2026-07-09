@@ -14,8 +14,13 @@ jobs:
         run: wget -q https://services.gradle.org/distributions/gradle-9.3.1-bin.zip && unzip -q gradle-9.3.1-bin.zip && ./gradle-9.3.1/bin/gradle wrapper
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Generate Dummy Debug Keystore
-        run: mkdir -p ~/.android && keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US" && cp ~/.android/debug.keystore ./app/debug.keystore || true
+      - name: Generate and Copy Dummy Debug Keystore Everywhere
+        run: |
+          mkdir -p ~/.android
+          keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          cp ~/.android/debug.keystore ./debug.keystore || true
+          cp ~/.android/debug.keystore ./app/debug.keystore || true
+          cp ~/.android/debug.keystore ../debug.keystore || true
       - name: Build with Gradle (Bypass KSP Daemon & Headless AWT)
         run: ./gradlew assembleDebug -Dorg.gradle.jvmargs="-Xmx2048m -Djava.awt.headless=true -Dkotlin.compiler.execution.strategy=in-process" --no-daemon
       - name: Upload APK
